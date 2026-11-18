@@ -53,6 +53,7 @@ make down          # stop
 
 ```bash
 sudo apt install tor python3-venv      # the tor package only; you do not need to start it
+tor                                    # Bootstrap the terminal
 make install                           # virtualenv + Python dependencies
 make run                               # http://127.0.0.1:8000
 ```
