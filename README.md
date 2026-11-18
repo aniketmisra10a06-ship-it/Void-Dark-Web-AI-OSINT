@@ -1,7 +1,7 @@
 <img width="1200" height="768" alt="image" src="https://github.com/user-attachments/assets/8aa51a9a-b531-4f86-b7ac-b46ecc9fea94" />
 
 
-                                                      VOID-Dark Web AI OSINT
+VOID-Dark Web AI OSINT
 
 **By Aniket Misra**
 
