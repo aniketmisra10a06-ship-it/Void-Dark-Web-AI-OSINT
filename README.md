@@ -5,8 +5,8 @@ VOID-Dark Web AI OSINT
 
 **By Aniket Misra**
 
-[![CI](https://github.com/OWNER/void/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/void/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+(https://github.com/OWNER/void/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/void/actions/workflows/ci.yml)
+(https://img.shields.io/badge/license-MIT-blue.svg)]
 
 A **passive, defensive dark web OSINT assistant** with a ChatGPT-style interface. Ask a question in
 plain English; Void searches **16 dark-web search engines at once** through its own built-in Tor,
@@ -224,6 +224,3 @@ policy. If you encounter child sexual abuse material, do not download or share i
 [NCMEC CyberTipline](https://report.cybertip.org), the [Internet Watch Foundation](https://report.iwf.org.uk)
 or your local [INHOPE](https://www.inhope.org) hotline.
 
-## License
-
-[MIT](LICENSE)
