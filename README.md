@@ -52,6 +52,7 @@ make down          # stop
 ### Without Docker
 
 ```bash
+sudo apt update && sudo apt upgrade -y  # Run a system upgrade
 sudo apt install tor python3-venv      # the tor package only; you do not need to start it
 tor                                    # Bootstrap the terminal
 make install                           # virtualenv + Python dependencies
