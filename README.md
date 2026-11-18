@@ -1,6 +1,7 @@
-<img width="1408" height="768" alt="Gemini_Generated_Image_scmup3scmup3scmu" src="https://github.com/user-attachments/assets/93ff52b4-9a02-40ba-92fa-05650d9e3fb9" />
+<img width="1200" height="768" alt="image" src="https://github.com/user-attachments/assets/8aa51a9a-b531-4f86-b7ac-b46ecc9fea94" />
 
-Void- Dark Web AI OSINT
+
+                                                      VOID-Dark Web AI OSINT
 
 **By Aniket Misra**
 
