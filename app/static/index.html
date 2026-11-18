@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Void · Dark Web AI OSINT</title>
+  <link rel="icon" href="/static/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar" aria-label="Sidebar">
+      <div class="brand">
+        <img src="/static/void-logo.png" alt="" width="34" height="34">
+        <span class="brand-text">Void<small>Dark Web AI OSINT</small></span>
+      </div>
+      <button id="new-chat" class="btn primary" type="button">+ New investigation</button>
+      <nav id="history" class="history" aria-label="Conversations"></nav>
+      <div class="sidebar-foot">
+        <button id="llm-btn" class="btn ghost small" type="button">AI model (optional)</button>
+        <button id="token-btn" class="btn ghost small" type="button">Access token</button>
+        <p>Passive, defensive research only.</p>
+        <p class="byline">By Aniket Misra</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="menu" class="icon-btn" type="button" aria-label="Toggle sidebar">&#9776;</button>
+        <h1 id="chat-title" class="title">New investigation</h1>
+        <div class="pills">
+          <span id="pill-tor" class="pill" title="Tor proxy status">Tor …</span>
+          <span id="pill-llm" class="pill" role="button" tabindex="0"
+                title="Analyst status. Click to optionally add an AI model or API key">AI …</span>
+        </div>
+      </header>
+
+      <div id="setup-banner" class="banner" hidden>
+        <span id="banner-text"></span>
+      </div>
+
+      <section id="messages" class="messages" aria-live="polite"></section>
+
+      <form id="composer" class="composer" autocomplete="off">
+        <div class="composer-box">
+          <textarea id="input" rows="1" maxlength="2000"
+                    placeholder="Ask about leaks, threat actors or brand exposure…"
+                    aria-label="Message"></textarea>
+          <div class="composer-row">
+            <label class="toggle" title="Off = chat about earlier results without new searches">
+              <input type="checkbox" id="search-toggle" checked>
+              <span class="track"></span>
+              <span>Search dark web</span>
+            </label>
+            <button id="send" class="send" type="submit" aria-label="Send">&#8593;</button>
+          </div>
+        </div>
+        <p class="disclaimer">
+          AI output can be wrong; verify before acting. Never open .onion links in a normal browser.
+        </p>
+      </form>
+    </main>
+  </div>
+
+  <dialog id="llm-dialog">
+    <form id="llm-form" autocomplete="off">
+      <h2>AI model (optional)</h2>
+      <p>Void works on its own: its built-in analyst searches, reads and writes cited reports with
+         no AI key. To get fluent narrative summaries and follow-up chat, optionally connect OpenAI
+         (ChatGPT API), Anthropic, Gemini, OpenRouter, Groq, Mistral or any OpenAI-compatible server.</p>
+      <p id="llm-locked" class="hint" hidden>These settings are locked by the server administrator.</p>
+
+      <label for="llm-provider">Provider</label>
+      <select id="llm-provider"></select>
+
+      <div id="llm-fields">
+      <label for="llm-model">Model</label>
+      <input id="llm-model" type="text" spellcheck="false" autocomplete="off" maxlength="120">
+
+      <label for="llm-url">Base URL</label>
+      <input id="llm-url" type="text" spellcheck="false" autocomplete="off" maxlength="300">
+
+      <label for="llm-key">API key</label>
+      <input id="llm-key" type="password" spellcheck="false" autocomplete="new-password" maxlength="512">
+      <p id="llm-key-state" class="hint"></p>
+      </div>
+
+      <p class="note">
+        <strong>Privacy:</strong> with a cloud provider, the text of the pages Void reads
+        (after redaction of emails, cards and passwords) is sent to that provider. Use a local
+        server (Ollama, LM Studio, vLLM) if that is not acceptable.
+      </p>
+      <p id="llm-msg" class="hint" role="status"></p>
+
+      <div class="dialog-actions">
+        <button id="llm-remove" class="btn ghost small" type="button" hidden>Remove saved key</button>
+        <span class="spacer"></span>
+        <button id="llm-close" class="btn" type="button">Close</button>
+        <button id="llm-test" class="btn" type="button">Save &amp; test</button>
+        <button id="llm-save" class="btn primary" type="submit">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="token-dialog">
+    <form method="dialog">
+      <h2>Access token</h2>
+      <p>This server requires a token. It is stored only in this browser.</p>
+      <input id="token-input" type="password" autocomplete="off" placeholder="Paste token">
+      <div class="dialog-actions">
+        <button class="btn" value="cancel">Cancel</button>
+        <button class="btn primary" value="ok">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

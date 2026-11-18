@@ -1,0 +1,13 @@
+# Operator-defined block patterns, one case-insensitive regular expression per line.
+# Lines starting with # are ignored. These are applied IN ADDITION to the built-in
+# child-safety and illegal-purchase rules in app/safety.py.
+#
+# A match against a user query refuses the query. A match against a search result or a
+# fetched page drops it: it is not sent to the LLM, not stored, and not shown.
+#
+# Organisations with a lawful need can extend this with their own vetted indicator lists
+# (e.g. hash/keyword lists provided by IWF or NCMEC to eligible members).
+#
+# Examples (uncomment to use):
+# \bsome-site-you-never-want-visited\b
+# \bunrelated-topic-you-want-excluded\b
