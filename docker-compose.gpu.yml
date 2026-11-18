@@ -1,0 +1,11 @@
+# Optional NVIDIA GPU override for the local model (requires nvidia-container-toolkit):
+#   docker compose --profile local-llm -f docker-compose.yml -f docker-compose.gpu.yml up -d
+services:
+  ollama:
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

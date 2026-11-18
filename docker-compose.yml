@@ -1,0 +1,80 @@
+name: void
+
+# One container does everything: web UI, search, crawling, the built-in analyst and its own Tor.
+# No AI key, no model download and no Tor Browser are needed.
+#
+# Optional: add a cloud AI (OpenAI, Anthropic, ...) in the UI under "AI model (optional)", or
+# run a local model (needs ~5 GB disk and ~8 GB RAM):  make up-local
+# Networking: the app container has normal internet access. Search and page requests are sent only
+# through its embedded Tor (SOCKS5 with remote DNS, proxy environment variables ignored); any
+# AI-provider call you configure goes directly to that provider.
+
+services:
+  app:
+    build: .
+    image: void:local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${APP_PORT:-8000}:8000"
+    environment:
+      # AI provider. All optional: leave empty and use the "AI model & API key" dialog instead.
+      LLM_PROVIDER: ${LLM_PROVIDER:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ALLOW_UI_CONFIG: ${ALLOW_UI_CONFIG:-true}
+      # Only used when the provider is "ollama" (profile local-llm).
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.1:8b}
+      OLLAMA_NUM_CTX: ${OLLAMA_NUM_CTX:-8192}
+      TOR_PROXY: ${TOR_PROXY:-auto}
+      ACCESS_TOKEN: ${ACCESS_TOKEN:-}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-}
+      SEARCH_ENGINES: ${SEARCH_ENGINES:-}
+      MAX_RESULTS: ${MAX_RESULTS:-40}
+      MAX_FETCH: ${MAX_FETCH:-8}
+      CRAWL_LINKS: ${CRAWL_LINKS:-8}
+      FETCH_TIMEOUT: ${FETCH_TIMEOUT:-45}
+      REDACT_PII: ${REDACT_PII:-true}
+      ALLOW_CLEARNET: ${ALLOW_CLEARNET:-false}
+      MAX_CONCURRENT: ${MAX_CONCURRENT:-2}
+    volumes:
+      - void-data:/data # audit log, Tor state, saved AI settings (key stored with mode 0600)
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+
+  # ---- optional local LLM (profile: local-llm) ------------------------------------------
+  ollama:
+    profiles: [local-llm]
+    image: ollama/ollama:latest # pin to a specific version for reproducible builds
+    restart: unless-stopped
+    volumes:
+      - ollama-models:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+  # One-shot job: downloads the model into the ollama volume, then exits.
+  ollama-pull:
+    profiles: [local-llm]
+    image: ollama/ollama:latest
+    restart: "no"
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: ollama:11434
+    entrypoint: ["ollama", "pull", "${OLLAMA_MODEL:-llama3.1:8b}"]
+
+volumes:
+  void-data:
+  ollama-models:
