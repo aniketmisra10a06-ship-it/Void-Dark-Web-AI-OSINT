@@ -1,6 +1,6 @@
-<p align="center"><img src="app/static/void-banner.jpg" alt="Void: Dark Web AI OSINT" width="720"></p>
+<img width="1408" height="768" alt="Gemini_Generated_Image_scmup3scmup3scmu" src="https://github.com/user-attachments/assets/93ff52b4-9a02-40ba-92fa-05650d9e3fb9" />
 
-# Void
+Void- Dark Web AI OSINT
 
 **By Aniket Misra**
 
